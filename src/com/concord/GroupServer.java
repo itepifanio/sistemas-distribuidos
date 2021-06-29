@@ -7,7 +7,7 @@ import java.rmi.registry.LocateRegistry;
 public class GroupServer {
     GroupServer() {
         try {
-            System.setProperty("java.rmi.server.hostname", "192.168.0.5");
+            System.setProperty("java.rmi.server.hostname", "127.0.0.1");
             LocateRegistry.createRegistry(1099);
             GroupContract groupContract = new GroupMain();
             Naming.bind("GroupService", (Remote) groupContract);

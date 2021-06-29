@@ -13,4 +13,4 @@ javac com/concord/*.java && rmic com.concord.GroupMain && java com.concord.Group
 ```
 
 Lembrando que quando rodar o resumo você estará rodando somente o servidor, 
-para rodar o cliente: `java com.concord.ConcordClient`
+para rodar o cliente: `java com.concord.GroupClient`

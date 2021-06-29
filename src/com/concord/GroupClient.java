@@ -2,16 +2,16 @@ package com.concord;
 
 import java.rmi.Naming;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GroupClient {
     public static void main(String[] args) {
         try {
-            Random random = new Random();
+            GroupContract group = (GroupContract) Naming.lookup("rmi://127.0.0.1:1099/GroupService");
 
-            GroupContract group = (GroupContract) Naming.lookup("rmi://192.168.0.5:1099/GroupService");
+            GroupClientService service = new GroupClientService(group);
 
-            System.out.println("Adding your group to the server");
-            group.add(random.toString());
+            service.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
