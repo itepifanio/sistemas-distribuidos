@@ -16,24 +16,20 @@ public class GroupServer extends UnicastRemoteObject implements GroupServerInter
         this.indexGroup = -1;
     }
 
-    @Override
     public void createGroup(String name) throws RemoteException {
         this.groups.add(new Group(name));
         System.out.println("Group " + name + " criado!!!");
     }
 
-    @Override
     public void enterGroup(int indexGroup) throws RemoteException {
         this.indexGroup = indexGroup;
     }
 
-    @Override
     public void publishMessage(String message) throws RemoteException {
         this.groups.get(this.indexGroup).setMessage(message);
     }
 
-    @Override
-    public void printMessages() throws RemoteException {
-        this.groups.get(this.indexGroup).printMessages();
+    public ArrayList<String> returnMessages() throws RemoteException {
+        return this.groups.get(this.indexGroup).getMessages();
     }
 }

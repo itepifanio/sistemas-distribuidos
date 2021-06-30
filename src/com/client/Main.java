@@ -25,7 +25,7 @@ public class Main {
          */
         label:
         while(true) {
-            System.out.println("\nPress 1 to create one group");
+            System.out.println("Press 1 to create one group");
             System.out.println("Press 2 to enter or exit in one group");
             System.out.println("Press 3 to publish a message");
             System.out.println("Press 4 to print group messages");
@@ -35,12 +35,11 @@ public class Main {
             scanner.nextLine();
             switch (option) {
                 case 1:
-                    System.out.print("Insert name of group: ");
+                    System.out.println("Insert name of group: ");
                     server.createGroup(scanner.nextLine());
-                    System.out.println("");
                     break;
                 case 2:
-                    System.out.print("Insert index of group or insert -1 to exit: ");
+                    System.out.println("Insert index of group or insert -1 to exit: ");
                     server.enterGroup(scanner.nextInt());
                     scanner.nextLine();
                     break;
@@ -49,7 +48,7 @@ public class Main {
                     server.publishMessage(scanner.nextLine());
                     break;
                 case 4:
-                    server.printMessages();
+                    System.out.println(server.returnMessages());
                     break;
                 case 0:
                     break label;

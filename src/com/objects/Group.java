@@ -19,6 +19,10 @@ public class Group {
         this.messages.add(message);
     }
 
+    public ArrayList<String> getMessages() {
+        return this.messages;
+    }
+
     public void printMessages() {
         System.out.println(this.messages);
     }
