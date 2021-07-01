@@ -1,16 +1,20 @@
-Compile todas as classes de `src/com/concord/` usando ` javac *.java `
+Compile todas as classes de usando ` javac com/client/*.java com/objects/*.java com/server/*.java `
 
 Na pasta src rode:
-`rmic com.concord.GroupMain`
+`rmic com.server.GroupServer`
 
 Em seguida execute o servidor (ainda na pasta src):
-`java com.concord.GroupServer`
+`java com.server.Main`
 
 Resumindo: 
 
 ```shell
-javac com/concord/*.java && rmic com.concord.GroupMain && java com.concord.GroupServer
+javac com/client/*.java com/objects/*.java com/server/*.java
+&&
+rmic com.server.GroupServer
+&&
+java com.server.Main
 ```
 
 Lembrando que quando rodar o resumo você estará rodando somente o servidor, 
-para rodar o cliente: `java com.concord.ConcordClient`
+para rodar o cliente: `java com.client.Main`

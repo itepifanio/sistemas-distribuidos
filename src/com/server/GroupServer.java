@@ -7,18 +7,20 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class GroupServer extends UnicastRemoteObject implements GroupServerInterface {
-    private ArrayList<Group> groups;
+    private final ArrayList<Group> groups;
     private int indexGroup;
 
     public GroupServer() throws RemoteException {
         super();
-        this.groups = new ArrayList<>();
+        this.groups = new ArrayList<Group>();
         this.indexGroup = -1;
     }
 
-    public void createGroup(String name) throws RemoteException {
+    public int createGroup(String name) throws RemoteException {
         this.groups.add(new Group(name));
         System.out.println("Group " + name + " criado!!!");
+
+        return groups.size()-1;
     }
 
     public void enterGroup(int indexGroup) throws RemoteException {

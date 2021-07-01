@@ -17,6 +17,5 @@ public class Main {
         Naming.rebind("rmi://127.0.0.1:1099/GroupServer", server);
 
         System.out.println("Server Starterd.");
-
     }
 }
