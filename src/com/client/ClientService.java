@@ -1,8 +1,10 @@
 package com.client;
 
+import com.objects.Group;
 import com.server.GroupServerInterface;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ClientService {
@@ -17,12 +19,6 @@ public class ClientService {
     public void execute() throws RemoteException {
         int option;
 
-        /*
-        O que pode melhorar?
-            1 - Nas messages ter a informação de quem publicou (User)
-            2 - Print groups com os index
-            3 - Lançar exceções ao inserir index errado
-         */
         label:
         while(true) {
             this.mainMenu();
@@ -33,14 +29,18 @@ public class ClientService {
             switch (option) {
                 case 1:
                     this.addToGroup();
+                    this.listGroupOptions();
                     break;
                 case 2:
-                    // TODO:: list the groups and its indexes
+                    this.listGroups();
+
                     System.out.println("Insert index of group");
                     int groupIndex = this.scanner.nextInt();
 
                     this.server.enterGroup(groupIndex);
                     this.scanner.nextLine();
+                    this.listGroupOptions();
+
                     break;
                 case 0:
                     break label;
@@ -72,7 +72,9 @@ public class ClientService {
         this.server.enterGroup(groupIndex);
 
         System.out.println("Group created with success. What do you want to do now?");
+    }
 
+    private void listGroupOptions() throws RemoteException {
         int option;
 
         label:
@@ -84,17 +86,25 @@ public class ClientService {
             switch (option) {
                 case 1:
                     System.out.println("Insert message:");
-                    server.publishMessage(this.scanner.nextLine());
+                    this.server.publishMessage(this.scanner.nextLine());
                 case 2:
-                    System.out.println(server.returnMessages());
+                    System.out.println(this.server.returnMessages());
                     break;
                 case 0:
-                    server.enterGroup(-1);
+                    this.server.enterGroup(-1);
                     break label;
                 default:
                     System.out.println("This option is invalid.");
                     break;
             }
+        }
+    }
+
+    private void listGroups() throws RemoteException {
+        ArrayList<Group> groups = this.server.getGroups();
+
+        for(int i = 0; i < groups.size(); i++) {
+            System.out.println("Index " + i + " Group " + groups.get(i).getName());
         }
     }
 }

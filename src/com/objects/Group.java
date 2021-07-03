@@ -1,10 +1,11 @@
 package com.objects;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Group {
-    private String name;
-    private ArrayList<String> messages;
+public class Group  implements Serializable {
+    private final String name;
+    private final ArrayList<String> messages;
 
     public Group(String name) {
         this.name = name;
