@@ -5,22 +5,22 @@ import java.util.ArrayList;
 
 public class Group  implements Serializable {
     private final String name;
-    private final ArrayList<String> messages;
+    private final ArrayList<Message> messages;
 
     public Group(String name) {
         this.name = name;
-        this.messages = new ArrayList<String>();
+        this.messages = new ArrayList<Message>();
     }
 
     public String getName() {
         return name;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(Message message) {
         this.messages.add(message);
     }
 
-    public ArrayList<String> getMessages() {
+    public ArrayList<Message> getMessages() {
         return this.messages;
     }
 

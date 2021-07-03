@@ -1,19 +1,23 @@
 package com.client;
 
 import com.objects.Group;
+import com.objects.Message;
 import com.server.GroupServerInterface;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ClientService {
     private final GroupServerInterface server;
     private final Scanner scanner;
+    private final int ownerId;
 
     public ClientService(GroupServerInterface server) {
         this.server = server;
         this.scanner = new Scanner(System.in);
+        this.ownerId = new Random().nextInt();
     }
 
     public void execute() throws RemoteException {
@@ -71,7 +75,7 @@ public class ClientService {
         int groupIndex = this.server.createGroup(this.scanner.nextLine());
         this.server.enterGroup(groupIndex);
 
-        System.out.println("Group created with success. What do you want to do now?");
+        System.out.println("Group created with success.");
     }
 
     private void listGroupOptions() throws RemoteException {
@@ -86,9 +90,10 @@ public class ClientService {
             switch (option) {
                 case 1:
                     System.out.println("Insert message:");
-                    this.server.publishMessage(this.scanner.nextLine());
+                    Message message = new Message(this.scanner.nextLine(), this.ownerId);
+                    this.server.publishMessage(message);
                 case 2:
-                    System.out.println(this.server.returnMessages());
+                    this.listMessages();
                     break;
                 case 0:
                     this.server.enterGroup(-1);
@@ -105,6 +110,18 @@ public class ClientService {
 
         for(int i = 0; i < groups.size(); i++) {
             System.out.println("Index " + i + " Group " + groups.get(i).getName());
+        }
+    }
+
+    private void listMessages() throws RemoteException
+    {
+        ArrayList<Message> messages = this.server.returnMessages();
+
+        for(int i = 0; i < messages.size(); i++) {
+            Message message = messages.get(i);
+
+            System.out.println(message.getOwnerId() == this.ownerId ? "You:" : "Anonymous:");
+            System.out.println(message);
         }
     }
 }
