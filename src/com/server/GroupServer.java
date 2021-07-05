@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public class GroupServer extends UnicastRemoteObject implements GroupServerInterface {
     private final ArrayList<Group> groups;
-    private int indexGroup;
+    private int groupIndex;
 
     public GroupServer() throws RemoteException {
         super();
         this.groups = new ArrayList<Group>();
-        this.indexGroup = -1;
+        this.groupIndex = -1;
     }
 
     public int createGroup(String name) throws RemoteException {
@@ -23,19 +23,24 @@ public class GroupServer extends UnicastRemoteObject implements GroupServerInter
         return groups.size()-1;
     }
 
-    public void enterGroup(int indexGroup) throws RemoteException {
-        this.indexGroup = indexGroup;
+    public boolean validIndex(int groupIndex) throws RemoteException {
+        try {
+            this.groups.get(groupIndex);
+            return true;
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
     }
 
-    public void publishMessage(Message message) throws RemoteException {
-        this.groups.get(this.indexGroup).setMessage(message);
+    public void publishMessage(Message message, int groupIndex) throws RemoteException {
+        this.groups.get(groupIndex).setMessage(message);
     }
 
     public ArrayList<Group> getGroups() throws RemoteException {
         return this.groups;
     }
 
-    public ArrayList<Message> returnMessages() throws RemoteException {
-        return this.groups.get(this.indexGroup).getMessages();
+    public ArrayList<Message> returnMessages(int groupIndex) throws RemoteException {
+        return this.groups.get(groupIndex).getMessages();
     }
 }

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public interface GroupServerInterface extends Remote {
     int createGroup(String name) throws RemoteException;
-    void enterGroup(int indexGroup) throws RemoteException;
-    void publishMessage(Message message) throws RemoteException;
+    boolean validIndex(int groupIndex) throws RemoteException;
+    void publishMessage(Message message, int groupIndex) throws RemoteException;
     ArrayList<Group> getGroups() throws RemoteException;
-    ArrayList<Message> returnMessages() throws RemoteException;
+    ArrayList<Message> returnMessages(int groupIndex) throws RemoteException;
 }

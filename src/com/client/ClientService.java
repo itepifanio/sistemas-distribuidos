@@ -13,6 +13,7 @@ public class ClientService {
     private final GroupServerInterface server;
     private final Scanner scanner;
     private final int ownerId;
+    private int groupIndex;
 
     public ClientService(GroupServerInterface server) {
         this.server = server;
@@ -39,9 +40,18 @@ public class ClientService {
                     this.listGroups();
 
                     System.out.println("Insert index of group");
-                    int groupIndex = this.scanner.nextInt();
+                    this.groupIndex = this.scanner.nextInt();
 
-                    this.server.enterGroup(groupIndex);
+                    // Enquanto não inserir um index válido
+                    while(!this.server.validIndex(this.groupIndex) && this.groupIndex != -1) {
+                        System.out.println("Insert a valid index of group");
+                        this.groupIndex = this.scanner.nextInt();
+                    }
+
+                    if(this.groupIndex == -1) {
+                        break;
+                    }
+
                     this.scanner.nextLine();
                     this.listGroupOptions();
 
@@ -57,14 +67,14 @@ public class ClientService {
 
     private void mainMenu()
     {
-        System.out.println("Press 1 to create a group");
+        System.out.println("\nPress 1 to create a group");
         System.out.println("Press 2 to enter in group");
         System.out.println("Press 0 to exit Concord");
     }
 
     private void groupMenu()
     {
-        System.out.println("Press 1 to publish a message");
+        System.out.println("\nPress 1 to publish a message");
         System.out.println("Press 2 to print group messages");
         System.out.println("Press 0 to exit the group");
     }
@@ -72,8 +82,7 @@ public class ClientService {
     private void addToGroup() throws RemoteException {
         System.out.println("Insert name of group: ");
 
-        int groupIndex = this.server.createGroup(this.scanner.nextLine());
-        this.server.enterGroup(groupIndex);
+        this.groupIndex = this.server.createGroup(this.scanner.nextLine());
 
         System.out.println("Group created with success.");
     }
@@ -91,12 +100,12 @@ public class ClientService {
                 case 1:
                     System.out.println("Insert message:");
                     Message message = new Message(this.scanner.nextLine(), this.ownerId);
-                    this.server.publishMessage(message);
+                    this.server.publishMessage(message, this.groupIndex);
                 case 2:
                     this.listMessages();
                     break;
                 case 0:
-                    this.server.enterGroup(-1);
+                    this.groupIndex = -1;
                     break label;
                 default:
                     System.out.println("This option is invalid.");
@@ -115,13 +124,12 @@ public class ClientService {
 
     private void listMessages() throws RemoteException
     {
-        ArrayList<Message> messages = this.server.returnMessages();
+        ArrayList<Message> messages = this.server.returnMessages(this.groupIndex);
 
-        for(int i = 0; i < messages.size(); i++) {
-            Message message = messages.get(i);
-
+        for(Message message : messages) {
             System.out.println(message.getOwnerId() == this.ownerId ? "You:" : "Anonymous:");
             System.out.println(message);
+            System.out.println("");
         }
     }
 }
