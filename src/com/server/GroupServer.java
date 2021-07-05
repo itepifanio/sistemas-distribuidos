@@ -9,12 +9,10 @@ import java.util.ArrayList;
 
 public class GroupServer extends UnicastRemoteObject implements GroupServerInterface {
     private final ArrayList<Group> groups;
-    private int groupIndex;
 
     public GroupServer() throws RemoteException {
         super();
         this.groups = new ArrayList<Group>();
-        this.groupIndex = -1;
     }
 
     public int createGroup(String name) throws RemoteException {
