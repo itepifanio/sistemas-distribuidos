@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class GroupController {
     private ArrayList<Group> groups;
     private ArrayList<String> users;
-    private int indexGroup;
 
     @Autowired
     public GroupController() {
