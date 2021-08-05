@@ -1,4 +1,4 @@
-package br.rest.server;
+package com.example.distribuida;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

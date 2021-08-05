@@ -1,4 +1,4 @@
-package br.rest.server;
+package com.example.distribuida;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,11 +8,11 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EntityScan(basePackages = { "com.example.distribuida.entity" })
 @ComponentScan(basePackages = {"com.example.distribuida.controller"})
-public class RestServerApplication {
+public class DistribuidaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(
-				RestServerApplication.class, args
+				DistribuidaApplication.class, args
 		);
 	}
 }

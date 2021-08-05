@@ -1,4 +1,4 @@
-package br.rest.server.entity;
+package com.example.distribuida.entity;
 
 import java.util.ArrayList;
 
