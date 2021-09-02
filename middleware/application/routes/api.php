@@ -19,5 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('notifications', function () {
-   \Illuminate\Support\Facades\Log::info(request()->all());
+    \Illuminate\Support\Facades\Log::info('hue');
+   \Illuminate\Support\Facades\Log::info(json_encode(request()->all()));
+
+   return response()->json(['success' => 'success']);
 });
