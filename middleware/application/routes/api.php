@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('notifications', function () {
-    \Illuminate\Support\Facades\Log::info('hue');
-   \Illuminate\Support\Facades\Log::info(json_encode(request()->all()));
-
-   return response()->json(['success' => 'success']);
-});
+Route::post('notifications', NotificationController::class)->name('api.notifications');
