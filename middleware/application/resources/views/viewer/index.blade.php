@@ -5,9 +5,11 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
+    <div class="py-8">
+        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8  space-y-4">
             <livewire:viewer.subscribe/>
+
+            <livewire:viewer.list-subscriptions/>
         </div>
     </div>
 </x-app-layout>
