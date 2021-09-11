@@ -25,7 +25,7 @@ class SendSubscription extends Command
             Mail::to(env('MAIL_FROM_ADDRESS'))->send(new MovieStarted($subscription));
         }
 
-//        $query->update(['sent' => true]);
+        (clone $query)->update(['sent' => true]);
 
         return 0;
     }
