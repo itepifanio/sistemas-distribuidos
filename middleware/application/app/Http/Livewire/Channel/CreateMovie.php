@@ -2,9 +2,10 @@
 
 namespace App\Http\Livewire\Channel;
 
-use Exception;
 use App\Models\Gender;
 use App\Models\Movie;
+use App\Services\Fiware;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
@@ -33,14 +34,14 @@ class CreateMovie extends Component
         return Gender::all();
     }
 
-    public function save(): void
+    public function save(Fiware\Entity $service): void
     {
         $this->validate();
 
         try {
             $this->movie->save();
 
-            // FIWARE CREATE MOVIE ENTITY
+            $service->create($this->movie);
 
             $this->emit('create-movie::saved');
 

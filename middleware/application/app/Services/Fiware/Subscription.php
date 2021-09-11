@@ -5,15 +5,8 @@ namespace App\Services\Fiware;
 use App\Models;
 use Illuminate\Support\Facades\Http;
 
-class Subscription
+class Subscription extends FiwareAbstractService
 {
-    public string $baseUrl;
-
-    public function __construct()
-    {
-        $this->baseUrl = config('services.fiware.host') . '/v2';
-    }
-
     public function subscribe(Models\Subscription $subscription): void
     {
         $url = $this->baseUrl . '/subscriptions';
