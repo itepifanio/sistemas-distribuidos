@@ -1,7 +1,7 @@
 @component('mail::message')
-    # Movie Started
+    # O Filme Começou!
 
-    The movie {{ $subscription->title }} it's starting now!
+    O filme **{{ $subscription->title }}** acabou de começar!
 
-    You're seeing this notification because you're subscribed to the gender {{ $subscription->movie_gender }}
+    Você está vendo essa notificação porqe está inscrito para visualizar todos os filme do gênero **{{ $subscription->movie_gender }}**.
 @endcomponent

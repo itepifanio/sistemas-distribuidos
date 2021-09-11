@@ -4,22 +4,25 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/** @property-read User $user */
 class Subscription extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'description',
-        'movie_id',
-        'movie_gender',
-        'subscription_id',
-        'date_of_notification',
-        'sent',
+        'user_id',
+        'gender_id',
     ];
 
-    protected $dates = [
-        'date_of_notification',
-    ];
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function gender(): BelongsTo
+    {
+        return $this->belongsTo(Gender::class);
+    }
 }

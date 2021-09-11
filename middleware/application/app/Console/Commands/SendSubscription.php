@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Mail\MovieStarted;
-use App\Models\Subscription;
+use App\Models\FiwareSubscription;
 use Illuminate\Console\Command;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Mail;
@@ -16,7 +16,7 @@ class SendSubscription extends Command
 
     public function handle()
     {
-        $query = Subscription::where('date_of_notification', '<', now())
+        $query = FiwareSubscription::where('date_of_notification', '<', now())
             ->whereSent(false);
 
         $subscriptions = (clone $query)->get();
@@ -25,7 +25,7 @@ class SendSubscription extends Command
             Mail::to(env('MAIL_FROM_ADDRESS'))->send(new MovieStarted($subscription));
         }
 
-        $query->update(['sent' => true]);
+//        $query->update(['sent' => true]);
 
         return 0;
     }

@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Subscription;
+use App\Models\FiwareSubscription;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -13,7 +13,7 @@ class MovieStarted extends Mailable
 
     protected $subscription;
 
-    public function __construct(Subscription $subscription)
+    public function __construct(FiwareSubscription $subscription)
     {
         $this->subscription = $subscription;
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    if(auth()->user()->type === User::TYPE_VIEWER) {
+        return view('viewer.index');
+    }
+
+    return view('channel.index');
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

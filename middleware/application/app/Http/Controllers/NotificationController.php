@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subscription;
+use App\Models\FiwareSubscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -10,7 +10,7 @@ class NotificationController extends Controller
 {
     public function __invoke(Request $request)
     {
-        Subscription::query()->upsert(
+        FiwareSubscription::query()->upsert(
             $this->mapMoviesData($request->subscriptionId, $request->data),
             ['movie_id', 'movie_title']
         );
