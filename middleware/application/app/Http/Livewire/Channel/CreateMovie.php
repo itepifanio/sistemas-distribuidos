@@ -7,6 +7,7 @@ use App\Models\Movie;
 use App\Services\Fiware;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class CreateMovie extends Component
@@ -38,6 +39,8 @@ class CreateMovie extends Component
     {
         $this->validate();
 
+        DB::beginTransaction();
+
         try {
             $this->movie->save();
 
@@ -46,7 +49,11 @@ class CreateMovie extends Component
             $this->emit('create-movie::saved');
 
             $this->initMovie();
+
+            DB::commit();
         } catch (Exception $e) {
+            DB::rollBack();
+
             dd($e); // I'll not handle this right now
         }
     }

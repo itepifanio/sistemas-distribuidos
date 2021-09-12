@@ -38,11 +38,13 @@ class Subscribe extends Component
 
             $service->subscribe($this->subscription);
 
+            $this->initSubscription();
+
             DB::commit();
         } catch (Exception $e) {
-            dd($e); // I will not handle this
-
             DB::rollBack();
+
+            dd($e); // I will not handle this
         }
 
         $this->emit('subscribe::saved');
